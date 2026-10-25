@@ -1,0 +1,8 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    {"collectionGroup":"parts","fieldPath":"text","indexes":[]},
+    {"collectionGroup":"records","fieldPath":"inline","indexes":[]},
+    {"collectionGroup":"privateStores","fieldPath":"slugs","indexes":[]}
+  ]
+}

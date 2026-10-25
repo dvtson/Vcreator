@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom Prose styling for Rich Text editor and rendered HTML */
+.rich-text-content {
+  color: #334155;
+  line-height: 1.75;
+}
+
+.rich-text-content h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0A2540;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rich-text-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0A2540;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.25rem;
+}
+
+.rich-text-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #005BAC;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content p {
+  margin-bottom: 0.75rem;
+}
+
+.rich-text-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rich-text-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rich-text-content li {
+  margin-bottom: 0.25rem;
+}
+
+.rich-text-content a {
+  color: #005BAC;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.rich-text-content a:hover {
+  color: #E31E24;
+}
+
+.rich-text-content blockquote {
+  border-left: 4px solid #005BAC;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #475569;
+  background-color: #F8FAFC;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rich-text-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.rich-text-content th,
+.rich-text-content td {
+  border: 1px solid #cbd5e1;
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+}
+
+.rich-text-content th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.rich-text-content img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Shared spacing safeguards for editable content and narrow screens. */
+@layer base {
+  h1, h2, h3, h4, h5, h6, p { overflow-wrap: anywhere; }
+  input, select, textarea { min-width: 0; }
+  svg { flex-shrink: 0; }
+  :focus-visible { outline: 2px solid #005BAC; outline-offset: 3px; }
+  html { scroll-padding-top: 9rem; }
+}
+
+.public-shell .hero-actions > a {
+  min-height: 3rem;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.5;
+}
+.admin-shell input:not([type='checkbox']):not([type='radio']):not([type='file']),
+.admin-shell select { min-height: 2.5rem; }
+.admin-shell textarea { line-height: 1.6; }
+.admin-shell th, .admin-shell td,
+.public-shell th, .public-shell td { vertical-align: top; }
+.admin-shell th, .public-shell th { line-height: 1.5; }
+.rich-text-content { overflow-x: auto; overflow-wrap: anywhere; }
+.rich-text-content table { min-width: 32rem; }
+.admin-transfer .transfer-actions > strong { flex-basis: 100%; line-height: 1.5; }
+.admin-transfer button, .admin-transfer label { min-height: 2.5rem; line-height: 1.5; }
+
+@media (max-width: 639px) {
+  .admin-transfer .transfer-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-transfer .transfer-actions > strong,
+  .admin-transfer .transfer-actions > a,
+  .admin-transfer .transfer-actions > label { grid-column: 1 / -1; }
+  .admin-transfer .transfer-actions > button,
+  .admin-transfer .transfer-actions > label { text-align: center; }
+  .admin-shell input:not([type='checkbox']):not([type='radio']),
+  .admin-shell textarea, .admin-shell select { font-size: 16px; }
+}
+@media (max-width: 639px) {
+  .public-shell .hero-actions > a { padding-inline: 0.75rem; }
+}

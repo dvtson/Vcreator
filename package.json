@@ -1,0 +1,44 @@
+{
+  "name": "vrb-creator-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test:firebase": "node --experimental-vm-modules scripts/firebase-check.mjs",
+    "test:browser": "node scripts/firebase-browser-check.mjs",
+    "test:submissions": "node --experimental-vm-modules scripts/submissions-check.mjs",
+    "test:submissions:browser": "node scripts/submissions-browser-check.mjs",
+    "test:admin-backend": "node scripts/admin-backend-check.mjs",
+    "test:admin-browser": "node scripts/admin-features-browser-check.mjs",
+    "firebase:local": "node scripts/firebase-local.mjs",
+    "test:api": "node scripts/api-check.mjs"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "firebase": "^13.0.0",
+    "lucide-react": "^1.57.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "firebase-tools": "^15.34.1",
+    "oxlint": "^1.81.0",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

@@ -1,0 +1,13 @@
+artifacts/
+backups/
+functions/
+worker/
+scripts/
+.env.local
+.env
+.env.*
+!.env.example
+**/*service-account*.json
+**/*firebase-adminsdk*.json
+.firebase/
+.git/
