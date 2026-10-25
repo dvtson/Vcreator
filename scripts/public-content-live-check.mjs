@@ -1,0 +1,3 @@
+import {createPublicContent} from '../server/public-content.mjs';
+const handler=createPublicContent();let total=0;
+for(const store of ['program_info','featured_contents','featured_individuals']){const url='https://local.test/api/publicContent?store='+store;let t=performance.now();const res=await handler(new Request(url));const text=await res.text();if(!res.ok)throw Error(store+' '+res.status);let cold=Math.round(performance.now()-t);t=performance.now();await (await handler(new Request(url))).text();const warm=Math.round(performance.now()-t);total+=Buffer.byteLength(text);console.log(JSON.stringify({store,firstServerReadMs:cold,warmServerReadMs:warm,jsonBytes:Buffer.byteLength(text),rows:JSON.parse(text).rows.length}));}console.log('total_json_bytes',total);

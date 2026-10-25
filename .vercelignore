@@ -2,7 +2,8 @@ artifacts/
 backups/
 functions/
 worker/
-scripts/
+scripts/*
+!scripts/build-site.mjs
 .env.local
 .env
 .env.*

@@ -24,7 +24,7 @@ export const IndividualCard: React.FC<IndividualCardProps> = ({ individual, rank
         {/* Avatar and basic info */}
         <div className="flex items-start gap-3 mb-4">
           <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-vrb-blue/20 shadow-md group-hover:border-vrb-blue transition-colors flex-shrink-0">
-            <img
+            <img loading="lazy" decoding="async"
               src={individual.avatarUrl}
               alt={individual.fullName}
               className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-300"

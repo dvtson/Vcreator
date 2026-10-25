@@ -77,7 +77,15 @@ export async function listCloudRecords<T>(store: ContentStore, fresh=false): Pro
   return structuredClone(await request) as T[];
 }
 export async function getCloudRecord<T>(store: ContentStore,id: string): Promise<T|null> {
-  return (await listCloudRecords<ContentRecord>(store)).find(item=>item.id===id) as T || null;
+  const state=await readState();if(!state)return null;
+  const admin=canManageContent();
+  const cached=listCache.get(`${state.activeGeneration}/${admin}/${store}`);
+  if(cached)return (await cached).find(item=>item.id===id) as T || null;
+  // A document page must not download every other document and PDF in its store.
+  const reference=recordRef(state.activeGeneration,store,id,admin);
+  const snapshot=await getDocFromServer(reference);
+  if(!snapshot.exists())return null;
+  return structuredClone(await hydrate(reference,snapshot.data() as Manifest)) as T;
 }
 async function prepare(ref: DocumentReference, value: ContentRecord): Promise<Prepared> {
   const encoded=encodeRecord(value);const revision=crypto.randomUUID();

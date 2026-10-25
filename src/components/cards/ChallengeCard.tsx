@@ -26,7 +26,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge }) => {
     <div className="group bg-white rounded-2xl border border-slate-200/90 hover:border-vrb-blue/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
       {/* Thumbnail */}
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-        <img
+        <img loading="lazy" decoding="async"
           src={challenge.bannerUrl}
           alt={challenge.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

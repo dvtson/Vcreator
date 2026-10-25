@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && node scripts/build-site.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "test:firebase": "node --experimental-vm-modules scripts/firebase-check.mjs",
@@ -15,7 +15,11 @@
     "test:admin-backend": "node scripts/admin-backend-check.mjs",
     "test:admin-browser": "node scripts/admin-features-browser-check.mjs",
     "firebase:local": "node scripts/firebase-local.mjs",
-    "test:api": "node scripts/api-check.mjs"
+    "test:api": "node scripts/api-check.mjs",
+    "test:loading": "node scripts/loading-browser-check.mjs",
+    "test:public-content": "node scripts/public-content-check.mjs",
+    "test:first-visit": "node scripts/public-first-visit-check.mjs",
+    "test:ssr": "node scripts/ssr-browser-check.mjs"
   },
   "dependencies": {
     "fflate": "^0.8.3",

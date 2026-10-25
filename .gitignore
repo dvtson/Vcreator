@@ -20,6 +20,7 @@ dist-ssr
 /.vercel/
 # Superseded deployment implementation and its generated files
 /worker/
+/server/generated/
 
 # Editor directories and files
 .vscode/*

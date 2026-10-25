@@ -14,7 +14,7 @@ export const FeaturedVideoCard: React.FC<FeaturedVideoCardProps> = ({ content })
     <div className="group bg-white rounded-2xl border border-slate-200/90 hover:border-vrb-blue/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden">
       {/* Thumbnail with overlay play button */}
       <div className="relative aspect-video overflow-hidden bg-slate-900">
-        <img
+        <img loading="lazy" decoding="async"
           src={content.thumbnailUrl}
           alt={content.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"

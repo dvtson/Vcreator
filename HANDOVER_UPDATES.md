@@ -53,3 +53,23 @@ Cập nhật kết nối Firebase ngày 21/10/2026: xem [FIREBASE_HANDOVER.md](.
 ## Kiểm tra
 
 `npm run build` kiểm tra TypeScript và tạo bản phát hành. `npm run lint` kiểm tra mã. Bộ kiểm tra trình duyệt nằm tại `scripts/qa.mjs`, chạy với Playwright và Edge; dùng dữ liệu trong phiên trình duyệt kiểm thử riêng, không sửa dữ liệu người dùng.
+
+## Tối ưu tải nội dung — 25/10/2026
+
+- DataContext áp dụng từng nhóm khi hoàn tất thay vì chờ Promise.all mới hiển thị tất cả. PublicLayout hiển thị trang khi thông tin chương trình sẵn sàng; Admin vẫn chờ đủ dữ liệu trước khi sửa.
+- Cache IndexedDB riêng vrb_public_preview_v1, tách theo project, dùng trong 10 phút. Chỉ ghi khi đọc ẩn danh; luôn lọc whitelist bằng publicProjection, loại bản nháp/ẩn và không chứa bài gửi hoặc tài khoản. Bản công khai cũ có thể hiện ngắn trước khi được thay bằng dữ liệu mới; đây không phải cache ngoại tuyến lâu dài. Không dùng dữ liệu mẫu để giả lập dữ liệu cloud thành công.
+- Lỗi/quota cache không chặn nội dung thật; callback request cũ không được ghi vào trạng thái tài khoản mới.
+- getCloudRecord dùng get một tài liệu thay cho tải tất cả bản ghi/tệp PDF cùng nhóm nếu chưa có cache danh sách.
+- npm run test:loading kiểm tra mạng chậm, render trước nhóm phụ, cache công khai, dữ liệu mới thay cache và loại bản nháp bằng trình duyệt cách ly. Không kiểm thử tải production hoặc hứa số mili giây cụ thể.
+- Chưa push/deploy bản tối ưu ở thời điểm ghi chú này. .env.local vẫn là cấu hình riêng, không đưa lên Git.
+
+## Đường tải nhanh cho khách mới — 25/10/2026
+
+- api/publicContent.mjs và server/public-content.mjs đọc ẩn danh đúng publicStores của activeGeneration; không dùng service account và không đọc privateStores/submissions/admin_users.
+- API nội dung được Vercel CDN cache 15 giây, cache trong tiến trình 15 giây; tách ảnh Base64 thành URL ảnh theo revision. Ảnh không còn làm phình JSON văn bản. Mỗi store là một request độc lập. Không cache phản hồi lỗi.
+- Production public pages dùng API trước cả khi Firebase Auth ready; không mở listener Firestore cho trang công khai. Refresh khi tab đang hiển thị mỗi 30 giây. Admin giữ Firebase riêng và thấy thay đổi tức thời theo cơ chế hiện hành; khách có thể thấy cập nhật trễ khoảng một phút cộng thời gian mạng.
+- Nếu API lỗi, quay về đường Firebase hiện hành. Phần tối ưu cache trình duyệt/hiện theo nhóm bổ trợ vẫn giữ; đây không phải cách duy nhất tăng tốc.
+- Card ảnh dùng lazy loading và giải mã bất đồng bộ.
+- npm run test:public-content: public-only REST, dữ liệu chia phần, tách ảnh, ID/revision, loại draft, cache/TTL và lỗi không cache. npm run test:first-visit: profile mới, giữ Auth pending, trang chủ vẫn hiện qua public API và không gọi Firestore.
+- Đo backend chỉ đọc thật: program_info JSON 1045 bytes, featured_contents 2256 bytes, featured_individuals 2898 bytes, tổng 6199 bytes; warm process ~0–1ms, cold đọc từng nhóm ~443–604ms trên máy kiểm tra. Không coi đây là thời gian tải production/trình duyệt hoặc cam kết SLA.
+- Chưa đẩy lên GitHub hoặc deploy bản tối ưu tại thời điểm ghi chú.

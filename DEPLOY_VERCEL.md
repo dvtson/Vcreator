@@ -46,3 +46,11 @@ Trang cá nhân hỗ trợ cuộc thi nội bộ: Vercel Hobby phục vụ giao 
 - Đóng nhận bài và kiểm tra form khách không gửi được; mở lại khi bắt đầu cuộc thi.
 - Kiểm tra Usage Firestore/Vercel sau khi chạy thử. Chưa có kiểm thử tải thực tế hoặc chống spam server cho form công khai; không khẳng định số người đồng thời hay miễn phí không giới hạn.
 - Trước khi thay nội dung lớn: xuất bản sao nội dung và danh sách bài gửi riêng.
+
+## Trang chủ dựng sẵn trên máy chủ
+
+Build tạo cả client dist/ và SSR server/generated/. Đường / được rewrite đến api/homepage.mjs; server lấy nội dung public qua Rules ẩn danh, render React thành HTML có đủ các phần trang chủ và đính kèm snapshot công khai. Browser hydrate trên HTML sẵn có, không thay bằng màn hình tải. Không chèn dữ liệu tài khoản/bài gửi/bản nháp. Các trang khác giữ SPA + API public tối ưu; chưa chuyển toàn bộ trang sang SSR.
+
+Vercel cache HTML 15 giây; dữ liệu public cache ngắn ở máy chủ và CDN. Chỉnh nội dung không cần build lại; khách có thể thấy nội dung cũ một khoảng ngắn do cache. Nếu nguồn public lỗi, route trả template SPA không cache để vẫn có đường khôi phục; không tạo nội dung mẫu giả.
+
+Không cần thêm biến môi trường mới. scripts/build-site.mjs được giữ trong upload Vercel; các script kiểm thử vẫn bị loại. server/generated được tạo khi build và include vào function homepage. Kiểm tra npm run test:ssr sau build: HTML có đủ nội dung khi tắt JavaScript, hydration không lỗi, bố cục điện thoại.
