@@ -8,14 +8,17 @@
       "includeFiles": "server/generated/**"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/api/homepage"
+      "src": "/",
+      "dest": "/api/homepage"
     },
     {
-      "source": "/((?!api(?:/|$)).*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(?!api(?:/|$)).*",
+      "dest": "/index.html"
     }
   ]
 }

@@ -1,10 +1,10 @@
-import { renderHome } from '../server/generated/renderHome.js';
 import template from '../server/generated/template.mjs';
 import { createPublicContent } from '../server/public-content.mjs';
 const content=createPublicContent();
 export default { async fetch(request) {
   if(request.method!=='GET')return new Response(null,{status:405});
   try{
+    const {renderHome}=await import('../server/generated/renderHome.mjs');
     const stores=['program_info','challenges','awards','featured_individuals','featured_contents'];
     const rows=await Promise.all(stores.map(async store=>{
       const response=await content(new Request(new URL('/api/publicContent?store='+store,request.url)));
